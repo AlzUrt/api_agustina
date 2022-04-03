@@ -19,7 +19,7 @@ export default class Greeting{
         this.$els = {
             greeting: $('.js-greeting')
         }
-        this.names=['pierre', 'bozo', 'random', 'squid game', 'jean marie'];
+        this.names=['choose your anime'];
     }
     initEvents(){
         this.displayMessage();

@@ -15,8 +15,13 @@
 }
 .anime_container{
   text-align: center;
+  color: white;
   float: left;
   height: 470px;
   width: 23%;
   padding: 0 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  p{
+    margin-top:25px;
+  }
 }

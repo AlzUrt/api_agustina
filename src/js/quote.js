@@ -18,16 +18,23 @@ export default class Quote {
             quoteText: $('.js-quote-text'),
             quoteAuthor: $('.js-quote-author'),
             container: $('.js-container'),
+            form: $('.form_anime'),
+            details: $('.form_anime_solo'),
         }
     }
 
     initEvents() {
         this.getQuote();
+        this.$els.details.on("submit",this.lourd.bind(this));
+        this.$els.form.on("submit",this.test.bind(this));
+
+        
     }
 
-    getQuote() {
+    getQuote(anime_name) {
+
         const api = {
-            endpoint: 'https://api.jikan.moe/v3/search/anime?q=one_piece&limit=12',
+            endpoint: 'https://api.jikan.moe/v3/search/anime?q='+anime_name+'&limit=12',
             parent: {
                 'per_page': 1,
             }
@@ -44,26 +51,42 @@ export default class Quote {
     }
 
     renderQuote(quote){
-        let mainContainer = document.getElementById("myData");
+        let mainContainer = document.getElementById("test");
+
         for (let i = 0; i < quote.length; i++) {
             const anime_img = quote[i].image_url;
+
+            const anime_title = quote[i].title;
+
             let div = document.createElement("div");
             div.classList.add('anime_container');
-            div.innerHTML = '<img src='+anime_img+' width="250px" height="400px">';
+
+            div.innerHTML = '  <p>Name: '+anime_title+ '</p> <form action="" class="form_anime_solo"><input type="hidden" id="anime" name="anime" value='+i+'><input type="image" value="image" src='+anime_img+' width="250px" height="400px" alt="image"></form>';
+
+
             mainContainer.appendChild(div);
             this.$els.container.addClass('is-ready');
-        }
-        let anime_container = document.getElementById("anime_container");
-        console.log(anime_container);
-        for (let i = 0; i < 12; i++) {
-            console.log(i)
-            const anime_title = quote[i].title;
-            let div = document.createElement("div");
-            div.classList.add('anime_title');
-            div.innerHTML = 'Name: '+ anime_title;
-            anime_container.appendChild(div);
-            this.$els.container.addClass('is-ready');
-        }
 
+
+
+        }
     }
+
+    test(e){
+        e.preventDefault();
+        const input = $('#anime').val()
+        let mainContainer = document.getElementById("test");
+        mainContainer.innerHTML = '';
+        console.log("fuck");
+        this.getQuote(input)
+        
+    }
+
+    lourd(e){
+        e.preventDefault();
+        console.log('ici');
+        
+    }
+
+
 }
